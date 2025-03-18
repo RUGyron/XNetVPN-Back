@@ -1,0 +1,8 @@
+{
+    "cors_allowed_origins":  ["*"],
+    "cors_allowed_methods":  ["GET"],
+    "cors_allowed_headers":  ["Origin", "Content-Type", "Api-Key"],
+    "cors_exposed_headers":  ["Content-Length"],
+    "cors_max_age":  12,
+    "cors_allow_credentials":  true
+}
