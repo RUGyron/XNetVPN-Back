@@ -3,6 +3,7 @@ package jwt
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"xnet-vpn/models"
 	"xnet-vpn/models/db"
 	"xnet-vpn/repositories/repo_users"
@@ -23,12 +24,17 @@ func AccessBearerRequired() gin.HandlerFunc {
 			c.AbortWithStatusJSON(responses.Unauthorized())
 			return
 		}
-		userId, err := utils.GetUserIdFromToken(jwtTokens.AccessToken)
-		if err != nil || userId == nil {
+		stringUserId, err := utils.GetUserIdFromToken(jwtTokens.AccessToken)
+		if err != nil || stringUserId == nil {
 			c.AbortWithStatusJSON(responses.Unauthorized())
 			return
 		}
-		user, err := repo_users.FindUserById(*userId)
+		userId, err := primitive.ObjectIDFromHex(*stringUserId)
+		if err != nil {
+			c.AbortWithStatusJSON(responses.Unauthorized())
+			return
+		}
+		user, err := repo_users.FindUserById(userId)
 		if err != nil {
 			c.AbortWithStatusJSON(responses.Unauthorized())
 			return
@@ -51,12 +57,17 @@ func RefreshBearerRequired() gin.HandlerFunc {
 			c.AbortWithStatusJSON(responses.Unauthorized())
 			return
 		}
-		userId, err := utils.GetUserIdFromToken(jwtTokens.RefreshToken)
-		if err != nil || userId == nil {
+		stringUserId, err := utils.GetUserIdFromToken(jwtTokens.RefreshToken)
+		if err != nil || stringUserId == nil {
 			c.AbortWithStatusJSON(responses.Unauthorized())
 			return
 		}
-		user, err := repo_users.FindUserById(*userId)
+		userId, err := primitive.ObjectIDFromHex(*stringUserId)
+		if err != nil {
+			c.AbortWithStatusJSON(responses.Unauthorized())
+			return
+		}
+		user, err := repo_users.FindUserById(userId)
 		if err != nil || user == nil {
 			c.AbortWithStatusJSON(responses.Unauthorized())
 			return
