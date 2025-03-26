@@ -12,6 +12,18 @@ type Model struct {
 	// Base
 	ApiKey string `json:"api_key"`
 
+	// JWT Auth
+	JwtKey               string `json:"jwt_key"`
+	JwtAccessExpiration  int    `json:"jwt_access_expiration"`  // minutes
+	JwtRefreshExpiration int    `json:"jwt_refresh_expiration"` // minutes
+
+	// Mongo Connect
+	MongoUri      string `json:"mongo_uri"`
+	MongoDatabase string `json:"mongo_database"`
+
+	// Collections
+	MongoCollectionUsers string `json:"mongo_collection_users"`
+
 	// CORS
 	CorsAllowedOrigins   []string `json:"cors_allowed_origins"`
 	CorsAllowedMethods   []string `json:"cors_allowed_methods"`
@@ -19,6 +31,12 @@ type Model struct {
 	CorsExposedHeaders   []string `json:"cors_exposed_headers"`
 	CorsMaxAge           int      `json:"cors_max_age"`
 	CorsAllowCredentials bool     `json:"cors_allow_credentials"`
+
+	// Timeouts (ms)
+	TimeoutMongoConnect     int `json:"timeout_mongo_connect"`
+	TimeoutMongoQuery       int `json:"timeout_mongo_query"`
+	TimeoutMongoQueryInside int `json:"timeout_mongo_query_inside"`
+	TimeoutExternalHttp     int `json:"timeout_external_http"`
 }
 
 func (c *Model) ImportJSON() {
@@ -42,6 +60,8 @@ func (c *Model) ImportJSON() {
 
 func (c *Model) ImportEnv() {
 	c.ApiKey = os.Getenv("API_KEY")
+	c.JwtKey = os.Getenv("JWT_KEY")
+	c.MongoUri = os.Getenv("MONGO_URI")
 }
 
 var (

@@ -4,5 +4,13 @@
     "cors_allowed_headers":  ["Origin", "Content-Type", "Api-Key"],
     "cors_exposed_headers":  ["Content-Length"],
     "cors_max_age":  12,
-    "cors_allow_credentials":  true
+    "cors_allow_credentials":  true,
+    "jwt_access_expiration": 15,
+    "jwt_refresh_expiration": 10080,
+    "timeout_mongo_connect": 10000,
+    "timeout_mongo_query": 5000,
+    "timeout_mongo_query_inside": 2000,
+    "timeout_external_http": 5000,
+    "mongo_database": "xnetvpn",
+    "mongo_collection_users": "users"
 }
