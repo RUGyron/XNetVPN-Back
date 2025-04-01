@@ -1,6 +1,9 @@
 package repo_users
 
 import (
+	"XNetVPN-Back/config"
+	"XNetVPN-Back/models/db"
+	"XNetVPN-Back/repositories"
 	"context"
 	"errors"
 	"go.mongodb.org/mongo-driver/bson"
@@ -8,9 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"time"
-	"xnet-vpn-back/config"
-	"xnet-vpn-back/models/db"
-	"xnet-vpn-back/repositories"
 )
 
 func FindUserById(userId primitive.ObjectID) (*db.User, error) {

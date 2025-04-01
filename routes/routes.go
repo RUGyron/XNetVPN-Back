@@ -1,8 +1,8 @@
 package routes
 
 import (
+	"XNetVPN-Back/controllers"
 	"github.com/gin-gonic/gin"
-	"xnet-vpn-back/controllers"
 )
 
 func SetupRoutes(router *gin.Engine) {

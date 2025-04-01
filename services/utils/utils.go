@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"XNetVPN-Back/config"
 	"errors"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
@@ -9,7 +10,6 @@ import (
 	"reflect"
 	"strings"
 	"sync"
-	"xnet-vpn-back/config"
 )
 
 var (

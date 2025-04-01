@@ -1,4 +1,4 @@
-module xnet-vpn-back
+module XNetVPN-Back
 
 go 1.24.1
 

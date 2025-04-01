@@ -1,12 +1,12 @@
 package main
 
 import (
+	"XNetVPN-Back/routes"
+	"XNetVPN-Back/services"
 	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"os"
-	"xnet-vpn-back/routes"
-	"xnet-vpn-back/services"
 )
 
 func main() {

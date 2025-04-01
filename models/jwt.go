@@ -1,10 +1,10 @@
 package models
 
 import (
+	"XNetVPN-Back/config"
 	"errors"
 	"github.com/dgrijalva/jwt-go"
 	"time"
-	"xnet-vpn-back/config"
 )
 
 type Tokens struct {

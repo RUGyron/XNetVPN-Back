@@ -1,13 +1,13 @@
 package repo_users
 
 import (
+	"XNetVPN-Back/config"
+	"XNetVPN-Back/repositories"
 	"context"
 	"errors"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
-	"xnet-vpn-back/config"
-	"xnet-vpn-back/repositories"
 )
 
 func InsertNewUser() (*primitive.ObjectID, error) {

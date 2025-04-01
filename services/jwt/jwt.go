@@ -1,14 +1,14 @@
 package jwt
 
 import (
+	"XNetVPN-Back/models"
+	"XNetVPN-Back/models/db"
+	"XNetVPN-Back/repositories/repo_users"
+	"XNetVPN-Back/responses"
+	"XNetVPN-Back/services/utils"
 	"errors"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"xnet-vpn-back/models"
-	"xnet-vpn-back/models/db"
-	"xnet-vpn-back/repositories/repo_users"
-	"xnet-vpn-back/responses"
-	"xnet-vpn-back/services/utils"
 )
 
 // AccessBearerRequired Auth required

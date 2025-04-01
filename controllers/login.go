@@ -1,13 +1,13 @@
 package controllers
 
 import (
+	"XNetVPN-Back/models"
+	"XNetVPN-Back/models/out"
+	"XNetVPN-Back/repositories/repo_users"
+	"XNetVPN-Back/responses"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"net/http"
-	"xnet-vpn-back/models"
-	"xnet-vpn-back/models/out"
-	"xnet-vpn-back/repositories/repo_users"
-	"xnet-vpn-back/responses"
 )
 
 func Login(c *gin.Context) {

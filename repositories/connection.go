@@ -1,6 +1,7 @@
 package repositories
 
 import (
+	"XNetVPN-Back/config"
 	"context"
 	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -11,7 +12,6 @@ import (
 	"log"
 	"sync"
 	"time"
-	"xnet-vpn-back/config"
 )
 
 var (
