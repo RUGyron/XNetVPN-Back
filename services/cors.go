@@ -3,7 +3,7 @@ package services
 import (
 	"github.com/gin-contrib/cors"
 	"time"
-	"xnet-vpn/config"
+	"xnet-vpn-back/config"
 )
 
 func GetCorsConfig() cors.Config {

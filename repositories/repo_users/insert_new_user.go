@@ -6,8 +6,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
-	"xnet-vpn/config"
-	"xnet-vpn/repositories"
+	"xnet-vpn-back/config"
+	"xnet-vpn-back/repositories"
 )
 
 func InsertNewUser() (*primitive.ObjectID, error) {

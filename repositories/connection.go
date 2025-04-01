@@ -11,7 +11,7 @@ import (
 	"log"
 	"sync"
 	"time"
-	"xnet-vpn/config"
+	"xnet-vpn-back/config"
 )
 
 var (

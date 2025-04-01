@@ -3,10 +3,10 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"xnet-vpn/models"
-	"xnet-vpn/models/out"
-	"xnet-vpn/repositories/repo_users"
-	"xnet-vpn/responses"
+	"xnet-vpn-back/models"
+	"xnet-vpn-back/models/out"
+	"xnet-vpn-back/repositories/repo_users"
+	"xnet-vpn-back/responses"
 )
 
 func Register(c *gin.Context) {

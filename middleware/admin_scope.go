@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"xnet-vpn/config"
-	"xnet-vpn/responses"
+	"xnet-vpn-back/config"
+	"xnet-vpn-back/responses"
 )
 
 func MaintenanceAndKeyMiddleware() gin.HandlerFunc {

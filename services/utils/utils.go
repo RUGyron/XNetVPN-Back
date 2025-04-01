@@ -9,7 +9,7 @@ import (
 	"reflect"
 	"strings"
 	"sync"
-	"xnet-vpn/config"
+	"xnet-vpn-back/config"
 )
 
 var (

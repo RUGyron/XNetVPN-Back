@@ -2,8 +2,8 @@ package out
 
 import (
 	"time"
-	"xnet-vpn/models"
-	"xnet-vpn/models/db"
+	"xnet-vpn-back/models"
+	"xnet-vpn-back/models/db"
 )
 
 type Login struct {

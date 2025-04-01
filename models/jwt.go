@@ -4,7 +4,7 @@ import (
 	"errors"
 	"github.com/dgrijalva/jwt-go"
 	"time"
-	"xnet-vpn/config"
+	"xnet-vpn-back/config"
 )
 
 type Tokens struct {

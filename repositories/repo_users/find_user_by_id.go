@@ -8,9 +8,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"time"
-	"xnet-vpn/config"
-	"xnet-vpn/models/db"
-	"xnet-vpn/repositories"
+	"xnet-vpn-back/config"
+	"xnet-vpn-back/models/db"
+	"xnet-vpn-back/repositories"
 )
 
 func FindUserById(userId primitive.ObjectID) (*db.User, error) {

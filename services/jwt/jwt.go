@@ -4,11 +4,11 @@ import (
 	"errors"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"xnet-vpn/models"
-	"xnet-vpn/models/db"
-	"xnet-vpn/repositories/repo_users"
-	"xnet-vpn/responses"
-	"xnet-vpn/services/utils"
+	"xnet-vpn-back/models"
+	"xnet-vpn-back/models/db"
+	"xnet-vpn-back/repositories/repo_users"
+	"xnet-vpn-back/responses"
+	"xnet-vpn-back/services/utils"
 )
 
 // AccessBearerRequired Auth required
