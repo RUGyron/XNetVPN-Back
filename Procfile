@@ -1,1 +1,1 @@
-web: XNetVPN
+web: XNetVPN-Back
