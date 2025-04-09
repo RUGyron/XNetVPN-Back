@@ -22,7 +22,9 @@ type Model struct {
 	MongoDatabase string `json:"mongo_database"`
 
 	// Collections
-	MongoCollectionUsers string `json:"mongo_collection_users"`
+	MongoCollectionUsers         string `json:"mongo_collection_users"`
+	MongoCollectionSubscriptions string `json:"mongo_collection_subscriptions"`
+	MongoCollectionDevices       string `json:"mongo_collection_devices"`
 
 	// CORS
 	CorsAllowedOrigins   []string `json:"cors_allowed_origins"`

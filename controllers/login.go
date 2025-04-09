@@ -12,12 +12,23 @@ import (
 
 func Login(c *gin.Context) {
 	var response out.Login
+	key := c.Param("key")
+	var userId primitive.ObjectID
+	var err error
 
-	// Parse user ID
-	userId, err := primitive.ObjectIDFromHex(c.Param("key"))
-	if err != nil {
-		c.JSON(responses.InvalidInputs())
-		return
+	if key == "" {
+		idPtr, err := repo_users.InsertNewUser()
+		if err != nil || idPtr == nil {
+			c.JSON(responses.ServerError())
+			return
+		}
+		userId = *idPtr
+	} else {
+		userId, err = primitive.ObjectIDFromHex(key)
+		if err != nil {
+			c.JSON(responses.InvalidInputs())
+			return
+		}
 	}
 
 	// Find user in db

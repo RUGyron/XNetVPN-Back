@@ -12,5 +12,7 @@
     "timeout_mongo_query_inside": 2000,
     "timeout_external_http": 5000,
     "mongo_database": "xnetvpn",
-    "mongo_collection_users": "users"
+    "mongo_collection_users": "users",
+    "mongo_collection_subscriptions": "subscriptions",
+    "mongo_collection_devices": "devices"
 }
