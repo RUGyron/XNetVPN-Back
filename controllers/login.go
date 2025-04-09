@@ -47,6 +47,7 @@ func Login(c *gin.Context) {
 		c.JSON(responses.ServerError())
 		return
 	}
+	response.Tokens = tokens
 
 	c.JSON(http.StatusOK, response)
 }
