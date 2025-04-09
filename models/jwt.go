@@ -14,10 +14,10 @@ type Tokens struct {
 
 var key = []byte(config.Config.JwtKey)
 
-func makeToken(robloxId string, expDate int64) (string, error) {
+func makeToken(userId string, expDate int64) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"robloxId": robloxId,
-		"exp":      expDate,
+		"userId": userId,
+		"exp":    expDate,
 	})
 
 	tokenString, err := token.SignedString(key)
@@ -33,14 +33,14 @@ func (j *Tokens) resetTokens() {
 	j.RefreshToken = ""
 }
 
-func (j *Tokens) GenerateTokens(robloxId string) error {
-	accessToken, err := makeToken(robloxId, time.Now().Add(time.Minute*time.Duration(config.Config.JwtAccessExpiration)).Unix())
+func (j *Tokens) GenerateTokens(userId string) error {
+	accessToken, err := makeToken(userId, time.Now().Add(time.Second*time.Duration(config.Config.JwtAccessExpiration)).Unix())
 	if err != nil {
 		j.resetTokens()
 		return err
 	}
 
-	refreshToken, err := makeToken(robloxId, time.Now().Add(time.Hour*time.Duration(config.Config.JwtRefreshExpiration)).Unix())
+	refreshToken, err := makeToken(userId, time.Now().Add(time.Second*time.Duration(config.Config.JwtRefreshExpiration)).Unix())
 	if err != nil {
 		j.resetTokens()
 		return err
@@ -52,14 +52,14 @@ func (j *Tokens) GenerateTokens(robloxId string) error {
 	return nil
 }
 
-func (j *Tokens) UpdateAccessToken(robloxId string) error {
+func (j *Tokens) UpdateAccessToken(userId string) error {
 	err := j.ValidateRefreshToken()
 	if err != nil {
 		j.resetTokens()
 		return err
 	}
 
-	accessToken, err := makeToken(robloxId, time.Now().Add(time.Minute*time.Duration(config.Config.JwtAccessExpiration)).Unix())
+	accessToken, err := makeToken(userId, time.Now().Add(time.Minute*time.Duration(config.Config.JwtAccessExpiration)).Unix())
 	if err != nil {
 		j.resetTokens()
 		return err

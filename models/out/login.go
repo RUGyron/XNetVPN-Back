@@ -11,8 +11,8 @@ type Login struct {
 		Id             string    `bson:"_id" json:"id"`
 		SubscriptionId *string   `bson:"subscription_id" json:"subscription_id"`
 		CreatedAt      time.Time `bson:"created_at" json:"created_at"`
-	}
-	Tokens models.Tokens `json:"tokens" bson:"tokens"`
+	} `bson:"user" json:"user"`
+	Tokens models.Tokens `bson:"tokens" json:"tokens"`
 }
 
 func (l *Login) FillWith(user *db.User) {
