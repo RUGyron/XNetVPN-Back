@@ -1,6 +1,7 @@
 package main
 
 import (
+	"XNetVPN-Back/repositories"
 	"XNetVPN-Back/routes"
 	"XNetVPN-Back/services"
 	"fmt"
@@ -9,7 +10,12 @@ import (
 	"os"
 )
 
+func init() {
+	repositories.ConnectToMongoDB()
+}
+
 func main() {
+
 	router := gin.Default()
 	router.Use(cors.New(services.GetCorsConfig()))
 	routes.SetupRoutes(router)
