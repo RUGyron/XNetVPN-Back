@@ -12,7 +12,7 @@ import (
 
 func Login(c *gin.Context) {
 	var response out.Login
-	key := c.Param("key")
+	key := c.Query("key")
 	var userId primitive.ObjectID
 	var err error
 

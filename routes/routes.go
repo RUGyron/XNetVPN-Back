@@ -7,7 +7,7 @@ import (
 )
 
 func SetupRoutes(router *gin.Engine) {
-	router.POST("/login/:key", controllers.Login)
+	router.POST("/login", controllers.Login)
 	router.GET("/subscriptions", controllers.Subscriptions)
 	router.POST("/update-token", jwt.RefreshBearerRequired(), controllers.UpdateToken)
 	router.POST("/profile", jwt.AccessBearerRequired(), controllers.Profile)
