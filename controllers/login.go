@@ -2,8 +2,11 @@ package controllers
 
 import (
 	"XNetVPN-Back/models"
+	"XNetVPN-Back/models/db"
 	"XNetVPN-Back/models/in"
 	"XNetVPN-Back/models/out"
+	"XNetVPN-Back/repositories/repo_devices"
+	"XNetVPN-Back/repositories/repo_subscriptions"
 	"XNetVPN-Back/repositories/repo_users"
 	"XNetVPN-Back/responses"
 	"github.com/gin-gonic/gin"
@@ -15,6 +18,7 @@ func Login(c *gin.Context) {
 	var payload in.Login
 	var response out.Login
 	var userId primitive.ObjectID
+	var subscription *db.Subscription
 	var err error
 
 	// Parse JSON
@@ -51,7 +55,21 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	response.FillWith(user)
+	devices, err := repo_devices.FindUserDevices(user.Id)
+	if err != nil {
+		c.JSON(responses.ServerError())
+		return
+	}
+
+	if user.SubscriptionId != nil {
+		subscription, err = repo_subscriptions.FindUserSubscription(*user.SubscriptionId)
+		if err != nil {
+			c.JSON(responses.ServerError())
+			return
+		}
+	}
+
+	response.User.FillWith(user, devices, subscription)
 
 	// Generate JWT tokens
 	var tokens = models.Tokens{}
