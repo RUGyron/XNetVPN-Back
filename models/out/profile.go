@@ -19,9 +19,11 @@ type device struct {
 }
 
 type userSubscription struct {
-	Name    string  `json:"name"`
-	Price   float64 `json:"price"`
-	Devices int     `json:"devices"`
+	Name             string  `json:"name"`
+	MonthPrice       float64 `json:"monthPrice"`
+	AnnualyPrice     float64 `json:"annualyPrice"`
+	AnnualyPriceYear float64 `json:"annualyPriceYear"`
+	Devices          int     `json:"devices"`
 }
 
 func (p *Profile) FillWith(user *db.User, devices []db.Device, subscription db.Subscription) {
@@ -37,5 +39,7 @@ func (p *Profile) FillWith(user *db.User, devices []db.Device, subscription db.S
 	}
 	p.Subscription.Name = subscription.Name
 	p.Subscription.Devices = subscription.Devices
-	p.Subscription.Price = subscription.Price
+	p.Subscription.MonthPrice = subscription.MonthPrice
+	p.Subscription.AnnualyPrice = subscription.AnnualyPrice
+	p.Subscription.AnnualyPriceYear = subscription.AnnualyPriceYear
 }
