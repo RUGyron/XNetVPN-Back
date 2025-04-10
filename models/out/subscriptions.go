@@ -11,9 +11,9 @@ type Subscriptions struct {
 type subscription struct {
 	Id                string   `json:"id" bson:"_id"`
 	Name              string   `json:"name" bson:"name"`
-	MonthPrice        float64  `json:"monthPrice" bson:"monthPrice"`
-	AnnuallyPrice     float64  `json:"annuallyPrice" bson:"annuallyPrice"`
-	AnnuallyPriceYear float64  `json:"annuallyPriceYear" bson:"annuallyPriceYear"`
+	MonthPrice        float64  `json:"month_price" bson:"month_price"`
+	AnnuallyPrice     float64  `json:"annually_price" bson:"annually_price"`
+	AnnuallyPriceYear float64  `json:"annually_price_year" bson:"annually_price_year"`
 	Devices           int      `json:"devices" bson:"devices"`
 	Benefits          []string `json:"benefits" bson:"benefits"`
 }
