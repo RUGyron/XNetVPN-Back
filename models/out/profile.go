@@ -20,9 +20,9 @@ type device struct {
 
 type userSubscription struct {
 	Name              string  `json:"name"`
-	MonthPrice        float64 `json:"monthPrice"`
-	AnnuallyPrice     float64 `json:"annuallyPrice"`
-	AnnuallyPriceYear float64 `json:"annuallyPriceYear"`
+	MonthPrice        float64 `json:"month_price"`
+	AnnuallyPrice     float64 `json:"annually_price"`
+	AnnuallyPriceYear float64 `json:"annually_price_year"`
 	Devices           int     `json:"devices"`
 }
 
