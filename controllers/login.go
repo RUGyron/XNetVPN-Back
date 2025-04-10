@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"XNetVPN-Back/models"
+	"XNetVPN-Back/models/in"
 	"XNetVPN-Back/models/out"
 	"XNetVPN-Back/repositories/repo_users"
 	"XNetVPN-Back/responses"
@@ -11,12 +12,24 @@ import (
 )
 
 func Login(c *gin.Context) {
+	var payload in.Login
 	var response out.Login
-	key := c.Query("key")
 	var userId primitive.ObjectID
 	var err error
 
-	if key == "" {
+	// Parse JSON
+	if err := c.ShouldBindJSON(&payload); err != nil {
+		c.JSON(responses.InvalidInputs())
+		return
+	}
+
+	// Validate payload
+	if ok, errs := payload.Validate(); !ok {
+		c.JSON(responses.InvalidInputs(errs...))
+		return
+	}
+
+	if payload.Key == nil || len(*payload.Key) == 0 {
 		idPtr, err := repo_users.InsertNewUser()
 		if err != nil || idPtr == nil {
 			c.JSON(responses.ServerError())
@@ -24,7 +37,7 @@ func Login(c *gin.Context) {
 		}
 		userId = *idPtr
 	} else {
-		userId, err = primitive.ObjectIDFromHex(key)
+		userId, err = primitive.ObjectIDFromHex(*payload.Key)
 		if err != nil {
 			c.JSON(responses.InvalidInputs())
 			return
