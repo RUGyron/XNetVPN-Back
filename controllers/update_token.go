@@ -2,7 +2,10 @@ package controllers
 
 import (
 	"XNetVPN-Back/models"
+	"XNetVPN-Back/models/db"
 	"XNetVPN-Back/models/out"
+	"XNetVPN-Back/repositories/repo_devices"
+	"XNetVPN-Back/repositories/repo_subscriptions"
 	"XNetVPN-Back/responses"
 	"XNetVPN-Back/services/jwt"
 	"XNetVPN-Back/services/utils"
@@ -25,7 +28,23 @@ func UpdateToken(c *gin.Context) {
 		c.JSON(responses.Unauthorized())
 		return
 	}
-	response.FillWith(user)
+
+	devices, err := repo_devices.FindUserDevices(user.Id)
+	if err != nil {
+		c.JSON(responses.ServerError())
+		return
+	}
+
+	var subscription *db.Subscription
+	if user.SubscriptionId != nil {
+		subscription, err = repo_subscriptions.FindUserSubscription(*user.SubscriptionId)
+		if err != nil {
+			c.JSON(responses.ServerError())
+			return
+		}
+	}
+
+	response.User.FillWith(user, devices, subscription)
 
 	// Update access token
 	err = response.Tokens.UpdateAccessToken(user.Id.Hex())

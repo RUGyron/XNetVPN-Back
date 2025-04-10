@@ -15,7 +15,7 @@ import (
 )
 
 func FindUserDevices(userId primitive.ObjectID) ([]db.Device, error) {
-	collection := repositories.MajorityClient.Database(config.Config.MongoDatabase).Collection(config.Config.MongoCollectionSubscriptions)
+	collection := repositories.MajorityClient.Database(config.Config.MongoDatabase).Collection(config.Config.MongoCollectionDevices)
 	filter := bson.M{"user_id": userId}
 
 	opts := options.Find().SetMaxTime(time.Duration(config.Config.TimeoutMongoQueryInside) * time.Millisecond)

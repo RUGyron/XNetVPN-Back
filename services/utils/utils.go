@@ -2,12 +2,14 @@ package utils
 
 import (
 	"XNetVPN-Back/config"
+	"XNetVPN-Back/models"
 	"errors"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"reflect"
+	"regexp"
 	"strings"
 	"sync"
 )
@@ -103,4 +105,19 @@ func GetUserIdFromToken(token string) (*string, error) {
 	}
 
 	return &userId, nil
+}
+
+func InitValidator() {
+	once.Do(func() {
+		localValidator = validator.New()
+		for ruleName, regexPattern := range models.RegexRules {
+			re := regexp.MustCompile(regexPattern)
+			err := localValidator.RegisterValidation(ruleName, func(fl validator.FieldLevel) bool {
+				return re.MatchString(fl.Field().String())
+			})
+			if err != nil {
+				panic(err)
+			}
+		}
+	})
 }

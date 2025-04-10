@@ -6,11 +6,11 @@ import (
 )
 
 type Profile struct {
-	Id              string           `json:"_id"`
-	CreatedAt       time.Time        `json:"created_at"`
-	SubscriptionEnd *time.Time       `json:"subscription_end"`
-	Subscription    userSubscription `json:"subscription"`
-	Devices         []device         `json:"devices"`
+	Id                    string            `json:"id" bson:"_id"`
+	CreatedAt             time.Time         `json:"created_at"`
+	SubscriptionExpiresAt *time.Time        `json:"subscription_expires_at"`
+	Subscription          *userSubscription `json:"subscription"`
+	Devices               []device          `json:"devices"`
 }
 
 type device struct {
@@ -26,10 +26,10 @@ type userSubscription struct {
 	Devices          int     `json:"devices"`
 }
 
-func (p *Profile) FillWith(user *db.User, devices []db.Device, subscription db.Subscription) {
+func (p *Profile) FillWith(user *db.User, devices []db.Device, subscription *db.Subscription) {
 	p.Id = user.Id.Hex()
 	p.CreatedAt = user.CreatedAt
-	p.SubscriptionEnd = user.SubscriptionEnd
+	p.SubscriptionExpiresAt = user.SubscriptionExpiresAt
 	p.Devices = make([]device, 0, len(devices))
 	for _, d := range devices {
 		p.Devices = append(p.Devices, device{
@@ -37,9 +37,11 @@ func (p *Profile) FillWith(user *db.User, devices []db.Device, subscription db.S
 			Type: d.Type,
 		})
 	}
-	p.Subscription.Name = subscription.Name
-	p.Subscription.Devices = subscription.Devices
-	p.Subscription.MonthPrice = subscription.MonthPrice
-	p.Subscription.AnnualyPrice = subscription.AnnualyPrice
-	p.Subscription.AnnualyPriceYear = subscription.AnnualyPriceYear
+	if subscription != nil {
+		p.Subscription.Name = subscription.Name
+		p.Subscription.Devices = subscription.Devices
+		p.Subscription.MonthPrice = subscription.MonthPrice
+		p.Subscription.AnnualyPrice = subscription.AnnualyPrice
+		p.Subscription.AnnualyPriceYear = subscription.AnnualyPriceYear
+	}
 }

@@ -8,7 +8,7 @@ import (
 
 func SetupRoutes(router *gin.Engine) {
 	router.POST("/login", controllers.Login)
-	router.GET("/subscriptions", controllers.Subscriptions)
+	router.POST("/subscriptions", controllers.Subscriptions)
 	router.POST("/update-token", jwt.RefreshBearerRequired(), controllers.UpdateToken)
 	router.POST("/profile", jwt.AccessBearerRequired(), controllers.Profile)
 	router.POST("/device/add", jwt.AccessBearerRequired(), controllers.AddDevice)

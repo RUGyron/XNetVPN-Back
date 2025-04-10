@@ -13,7 +13,7 @@ import (
 )
 
 func FindDevice(identifier string) (*db.Device, error) {
-	collection := repositories.MajorityClient.Database(config.Config.MongoDatabase).Collection(config.Config.MongoCollectionSubscriptions)
+	collection := repositories.MajorityClient.Database(config.Config.MongoDatabase).Collection(config.Config.MongoCollectionDevices)
 	filter := bson.M{"identifier": identifier}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(config.Config.TimeoutMongoQuery)*time.Millisecond)
 	defer cancel()

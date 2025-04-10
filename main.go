@@ -4,6 +4,7 @@ import (
 	"XNetVPN-Back/repositories"
 	"XNetVPN-Back/routes"
 	"XNetVPN-Back/services"
+	"XNetVPN-Back/services/utils"
 	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -11,6 +12,7 @@ import (
 )
 
 func init() {
+	utils.InitValidator()
 	repositories.ConnectToMongoDB()
 }
 
