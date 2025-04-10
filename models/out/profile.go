@@ -6,7 +6,7 @@ import (
 )
 
 type Profile struct {
-	Id                    string            `json:"_id"`
+	Id                    string            `json:"id" bson:"_id"`
 	CreatedAt             time.Time         `json:"created_at"`
 	SubscriptionExpiresAt *time.Time        `json:"subscription_expires_at"`
 	Subscription          *userSubscription `json:"subscription"`
