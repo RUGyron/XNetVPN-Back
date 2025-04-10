@@ -6,11 +6,11 @@ import (
 )
 
 type Profile struct {
-	Id                    string           `json:"_id"`
-	CreatedAt             time.Time        `json:"created_at"`
-	SubscriptionExpiresAt *time.Time       `json:"subscription_expires_at"`
-	Subscription          userSubscription `json:"subscription"`
-	Devices               []device         `json:"devices"`
+	Id                    string            `json:"_id"`
+	CreatedAt             time.Time         `json:"created_at"`
+	SubscriptionExpiresAt *time.Time        `json:"subscription_expires_at"`
+	Subscription          *userSubscription `json:"subscription"`
+	Devices               []device          `json:"devices"`
 }
 
 type device struct {
