@@ -6,8 +6,8 @@ import (
 )
 
 type User struct {
-	Id              primitive.ObjectID  `bson:"_id"`
-	SubscriptionId  *primitive.ObjectID `bson:"subscription_id"`
-	CreatedAt       time.Time           `bson:"created_at"`
-	SubscriptionEnd *time.Time          `bson:"subscription_end"`
+	Id                    primitive.ObjectID  `bson:"_id"`
+	SubscriptionId        *primitive.ObjectID `bson:"subscription_id"`
+	CreatedAt             time.Time           `bson:"created_at"`
+	SubscriptionExpiresAt *time.Time          `bson:"subscription_expires_at"`
 }

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"XNetVPN-Back/models/db"
 	"XNetVPN-Back/models/out"
 	"XNetVPN-Back/repositories/repo_devices"
 	"XNetVPN-Back/repositories/repo_subscriptions"
@@ -25,13 +26,16 @@ func Profile(c *gin.Context) {
 		return
 	}
 
-	subscription, err := repo_subscriptions.FindUserSubscription(*user.SubscriptionId)
-	if err != nil {
-		c.JSON(responses.ServerError())
-		return
+	var subscription *db.Subscription
+	if user.SubscriptionId != nil {
+		subscription, err = repo_subscriptions.FindUserSubscription(*user.SubscriptionId)
+		if err != nil {
+			c.JSON(responses.ServerError())
+			return
+		}
 	}
 
-	response.FillWith(user, devices, *subscription)
+	response.FillWith(user, devices, subscription)
 
 	c.JSON(http.StatusOK, response)
 }
