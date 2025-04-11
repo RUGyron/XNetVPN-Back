@@ -12,4 +12,5 @@ func SetupRoutes(router *gin.Engine) {
 	router.POST("/update-token", jwt.RefreshBearerRequired(), controllers.UpdateToken)
 	router.POST("/profile", jwt.AccessBearerRequired(), controllers.Profile)
 	router.POST("/device/add", jwt.AccessBearerRequired(), controllers.AddDevice)
+	router.POST("/config", jwt.AccessBearerRequired(), controllers.GetWgConfig)
 }

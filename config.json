@@ -14,5 +14,6 @@
     "mongo_database": "xnetvpn",
     "mongo_collection_users": "users",
     "mongo_collection_subscriptions": "subscriptions",
-    "mongo_collection_devices": "devices"
+    "mongo_collection_devices": "devices",
+    "mongo_collection_configs": "configs"
 }
