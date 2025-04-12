@@ -25,6 +25,7 @@ type Model struct {
 	MongoCollectionUsers         string `json:"mongo_collection_users"`
 	MongoCollectionSubscriptions string `json:"mongo_collection_subscriptions"`
 	MongoCollectionDevices       string `json:"mongo_collection_devices"`
+	MongoCollectionConfigs       string `json:"mongo_collection_configs"`
 
 	// CORS
 	CorsAllowedOrigins   []string `json:"cors_allowed_origins"`
@@ -39,6 +40,11 @@ type Model struct {
 	TimeoutMongoQuery       int `json:"timeout_mongo_query"`
 	TimeoutMongoQueryInside int `json:"timeout_mongo_query_inside"`
 	TimeoutExternalHttp     int `json:"timeout_external_http"`
+
+	// Wg server
+	WgClientUsername string `json:"wg_client_username"`
+	WgClientPassword string `json:"wg_client_password"`
+	WgServerApiUrl   string `json:"wg_server_api"`
 }
 
 func (c *Model) ImportJSON() {
@@ -64,6 +70,9 @@ func (c *Model) ImportEnv() {
 	c.ApiKey = os.Getenv("API_KEY")
 	c.JwtKey = os.Getenv("JWT_KEY")
 	c.MongoUri = os.Getenv("MONGO_URI")
+	c.WgClientUsername = os.Getenv("WG_CLIENT_USERNAME")
+	c.WgClientPassword = os.Getenv("WG_CLIENT_PASSWORD")
+	c.WgServerApiUrl = os.Getenv("WG_SERVER_API_URL")
 }
 
 var (
