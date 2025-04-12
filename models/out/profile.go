@@ -38,10 +38,12 @@ func (p *Profile) FillWith(user *db.User, devices []db.Device, subscription *db.
 		})
 	}
 	if subscription != nil {
-		p.Subscription.Name = subscription.Name
-		p.Subscription.Devices = subscription.Devices
-		p.Subscription.MonthPrice = subscription.MonthPrice
-		p.Subscription.AnnuallyPrice = subscription.AnnuallyPrice
-		p.Subscription.AnnuallyPriceYear = subscription.AnnuallyPriceYear
+		p.Subscription = &userSubscription{
+			Name:              subscription.Name,
+			MonthPrice:        subscription.MonthPrice,
+			AnnuallyPrice:     subscription.AnnuallyPrice,
+			AnnuallyPriceYear: subscription.AnnuallyPriceYear,
+			Devices:           subscription.Devices,
+		}
 	}
 }
