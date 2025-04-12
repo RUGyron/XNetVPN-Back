@@ -15,8 +15,9 @@ func InsertNewUser() (*primitive.ObjectID, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(config.Config.TimeoutMongoQuery)*time.Millisecond)
 	defer cancel()
 	result, err := collection.InsertOne(ctx, bson.M{
-		"subscription_id": nil,
-		"created_at":      time.Now().UTC(),
+		"subscription_id":         nil,
+		"created_at":              time.Now().UTC(),
+		"subscription_expires_at": nil,
 	})
 	if err != nil {
 		return nil, err
