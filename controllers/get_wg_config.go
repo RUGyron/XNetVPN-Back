@@ -3,8 +3,8 @@ package controllers
 import (
 	"XNetVPN-Back/models/in"
 	"XNetVPN-Back/models/out"
-	"XNetVPN-Back/repositories/repo_configs"
 	"XNetVPN-Back/repositories/repo_devices"
+	"XNetVPN-Back/repositories/repo_wg_configs"
 	"XNetVPN-Back/responses"
 	"XNetVPN-Back/services/jwt"
 	"XNetVPN-Back/services/wg_api"
@@ -50,7 +50,7 @@ func GetWgConfig(c *gin.Context) {
 			c.JSON(responses.ServerError())
 			return
 		}
-		configId, err := repo_configs.InsertConfiWg(wgConfig)
+		configId, err := repo_wg_configs.InsertWgConfig(wgConfig)
 		if err != nil {
 			c.JSON(responses.ServerError())
 			return
@@ -62,7 +62,7 @@ func GetWgConfig(c *gin.Context) {
 		}
 		device.ConfigId = &configId
 	}
-	config, err := repo_configs.FindConfigById(device.ConfigId)
+	config, err := repo_wg_configs.FindWgConfigById(device.ConfigId)
 	if err != nil || config == nil {
 		c.JSON(responses.ServerError())
 		return

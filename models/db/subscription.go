@@ -11,3 +11,11 @@ type Subscription struct {
 	Devices           int                `json:"devices" bson:"devices"`
 	Benefits          []string           `json:"benefits" bson:"benefits"`
 }
+
+type Product struct {
+	Id     primitive.ObjectID `json:"id" bson:"_id"`
+	Name   string             `json:"name" bson:"name"`
+	Price  float64            `json:"price" bson:"price"`
+	Annual bool               `json:"annual" bson:"annual"`
+	Rank   int                `json:"rank" bson:"rank"`
+}

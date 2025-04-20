@@ -3,6 +3,7 @@ package utils
 import (
 	"XNetVPN-Back/config"
 	"XNetVPN-Back/models"
+	"XNetVPN-Back/models/db"
 	"errors"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
@@ -12,6 +13,7 @@ import (
 	"regexp"
 	"strings"
 	"sync"
+	"time"
 )
 
 var (
@@ -120,4 +122,45 @@ func InitValidator() {
 			}
 		}
 	})
+}
+
+func CalculateSubscriptionSwitch(currentProduct *db.Product, targetProduct db.Product, startDate time.Time, currentCredit float64) (*models.ProductSwitchResult, error) {
+	// new: apply new
+	if currentProduct == nil {
+		if currentCredit >= targetProduct.Price {
+			return &models.ProductSwitchResult{AmountToPay: 0, NewCredit: currentCredit - targetProduct.Price, ApplyNow: true}, nil
+		}
+		return &models.ProductSwitchResult{AmountToPay: targetProduct.Price - currentCredit, NewCredit: 0, ApplyNow: true}, nil
+	}
+
+	// care not same product
+	if targetProduct.Rank == currentProduct.Rank {
+		return nil, errors.New("target product is the same")
+	}
+
+	// downgrade: apply after current
+	if targetProduct.Rank <= currentProduct.Rank {
+		if currentCredit >= targetProduct.Price {
+			return &models.ProductSwitchResult{AmountToPay: 0, NewCredit: currentCredit - targetProduct.Price, ApplyNow: false}, nil
+		}
+		return &models.ProductSwitchResult{AmountToPay: targetProduct.Price - currentCredit, NewCredit: 0, ApplyNow: false}, nil
+	}
+
+	// upgrade: cancel current, apply new
+
+	// calculate used price
+	usedDays := time.Now().UTC().Sub(startDate).Hours() / 24
+	var totalDays float64
+	if currentProduct.Annual {
+		totalDays = 365.0
+	} else {
+		totalDays = 30.0
+	}
+	usedPrice := (currentProduct.Price / totalDays) * usedDays
+	remainingCredit := currentProduct.Price - usedPrice + currentCredit
+
+	if remainingCredit >= targetProduct.Price {
+		return &models.ProductSwitchResult{AmountToPay: 0, NewCredit: remainingCredit - targetProduct.Price, ApplyNow: true}, nil
+	}
+	return &models.ProductSwitchResult{AmountToPay: targetProduct.Price - remainingCredit, NewCredit: 0, ApplyNow: true}, nil
 }

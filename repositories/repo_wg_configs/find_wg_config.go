@@ -1,4 +1,4 @@
-package repo_configs
+package repo_wg_configs
 
 import (
 	"XNetVPN-Back/config"
@@ -13,12 +13,12 @@ import (
 	"time"
 )
 
-func FindConfigById(configId *primitive.ObjectID) (*db.Config, error) {
-	collection := repositories.MajorityClient.Database(config.Config.MongoDatabase).Collection(config.Config.MongoCollectionConfigs)
+func FindWgConfigById(configId *primitive.ObjectID) (*db.WgConfig, error) {
+	collection := repositories.MajorityClient.Database(config.Config.MongoDatabase).Collection(config.Config.MongoCollectionWgConfigs)
 	filter := bson.M{"_id": configId}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(config.Config.TimeoutMongoQuery)*time.Millisecond)
 	defer cancel()
-	var result *db.Config
+	var result *db.WgConfig
 	err := collection.FindOne(ctx, filter, options.FindOne().SetMaxTime(time.Duration(config.Config.TimeoutMongoQueryInside)*time.Millisecond)).Decode(&result)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {

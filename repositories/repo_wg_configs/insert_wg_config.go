@@ -1,4 +1,4 @@
-package repo_configs
+package repo_wg_configs
 
 import (
 	"XNetVPN-Back/config"
@@ -11,10 +11,10 @@ import (
 	"time"
 )
 
-func InsertConfiWg(payload *in.ConfigResponse) (primitive.ObjectID, error) {
+func InsertWgConfig(payload *in.ConfigResponse) (primitive.ObjectID, error) {
 	collection := repositories.MajorityClient.
 		Database(config.Config.MongoDatabase).
-		Collection(config.Config.MongoCollectionConfigs)
+		Collection(config.Config.MongoCollectionWgConfigs)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(config.Config.TimeoutMongoQuery)*time.Millisecond)
 	defer cancel()

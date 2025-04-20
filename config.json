@@ -15,5 +15,16 @@
     "mongo_collection_users": "users",
     "mongo_collection_subscriptions": "subscriptions",
     "mongo_collection_devices": "devices",
-    "mongo_collection_configs": "configs"
+    "mongo_collection_wg_configs": "wg_configs",
+    "mongo_collection_config": "config",
+    "ip_header": "X-Forwarded-For",
+    "yoo_kassa_allowed_ips": [
+        "185.71.76.0/27",
+        "185.71.77.0/27",
+        "77.75.153.0/25",
+        "77.75.156.11/32",
+        "77.75.156.35/32",
+        "77.75.154.128/25",
+        "2a02:5180::/32"
+    ]
 }

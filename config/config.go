@@ -10,7 +10,9 @@ import (
 
 type Model struct {
 	// Base
-	ApiKey string `json:"api_key"`
+	ApiKey   string `json:"api_key"`
+	SiteUrl  string `json:"site_url"`
+	IpHeader string `json:"ip_header"`
 
 	// JWT Auth
 	JwtKey               string `json:"jwt_key"`
@@ -25,7 +27,8 @@ type Model struct {
 	MongoCollectionUsers         string `json:"mongo_collection_users"`
 	MongoCollectionSubscriptions string `json:"mongo_collection_subscriptions"`
 	MongoCollectionDevices       string `json:"mongo_collection_devices"`
-	MongoCollectionConfigs       string `json:"mongo_collection_configs"`
+	MongoCollectionWgConfigs     string `json:"mongo_collection_wg_configs"`
+	MongoCollectionConfig        string `json:"mongo_collection_config"`
 
 	// CORS
 	CorsAllowedOrigins   []string `json:"cors_allowed_origins"`
@@ -45,6 +48,11 @@ type Model struct {
 	WgClientUsername string `json:"wg_client_username"`
 	WgClientPassword string `json:"wg_client_password"`
 	WgServerApiUrl   string `json:"wg_server_api"`
+
+	// YooKassa
+	YooKassaApiKey     string   `json:"yoo_kassa_api_key"`
+	YooKassaShopId     string   `json:"yoo_kassa_shop_id"`
+	YooKassaAllowedIps []string `json:"yoo_kassa_allowed_ips"`
 }
 
 func (c *Model) ImportJSON() {
@@ -68,11 +76,14 @@ func (c *Model) ImportJSON() {
 
 func (c *Model) ImportEnv() {
 	c.ApiKey = os.Getenv("API_KEY")
+	c.SiteUrl = os.Getenv("SITE_URL")
 	c.JwtKey = os.Getenv("JWT_KEY")
 	c.MongoUri = os.Getenv("MONGO_URI")
 	c.WgClientUsername = os.Getenv("WG_CLIENT_USERNAME")
 	c.WgClientPassword = os.Getenv("WG_CLIENT_PASSWORD")
 	c.WgServerApiUrl = os.Getenv("WG_SERVER_API_URL")
+	c.YooKassaApiKey = os.Getenv("YOO_KASSA_API_KEY")
+	c.YooKassaShopId = os.Getenv("YOO_KASSA_SHOP_ID")
 }
 
 var (
