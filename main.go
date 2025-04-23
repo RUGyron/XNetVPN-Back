@@ -1,6 +1,7 @@
 package main
 
 import (
+	"XNetVPN-Back/repositories"
 	"XNetVPN-Back/routes"
 	"XNetVPN-Back/services"
 	"XNetVPN-Back/services/utils"
@@ -12,7 +13,7 @@ import (
 
 func init() {
 	utils.InitValidator()
-	//repositories.ConnectToMongoDB()
+	repositories.ConnectToMongoDB()
 }
 
 func main() {
