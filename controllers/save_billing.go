@@ -4,18 +4,16 @@ import (
 	"XNetVPN-Back/repositories/yk_events"
 	"XNetVPN-Back/responses"
 	"XNetVPN-Back/services/yookassa"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func SaveBilling(c *gin.Context) {
-	email := c.Param("email")
+	email := c.Query("email")
 
 	// send request in yk
 	ykId, redirectUri, err := yookassa.RequestBillingSave(email)
 	if err != nil || redirectUri == nil || ykId == nil {
-		fmt.Println(err, redirectUri, ykId)
 		c.JSON(responses.ServerError("failed to process payment"))
 		return
 	}
