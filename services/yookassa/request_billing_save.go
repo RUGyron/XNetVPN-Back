@@ -119,7 +119,7 @@ func RequestBillingSave(email string) (*string, *string, error) {
 // calculateAmountWithCommission 100 + 4% = 104.17
 func calculateAmountWithCommission(targetAmount float64) (*float64, error) {
 	// yookassa rate
-	yookassaRate, err := configs.FindYookassaRate()
+	yookassaRate, err := configs.FindYookassaFee()
 	if err != nil || yookassaRate == nil {
 		return nil, err
 	}

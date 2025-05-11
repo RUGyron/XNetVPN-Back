@@ -12,9 +12,9 @@ import (
 	"time"
 )
 
-func FindYookassaRate() (*float64, error) {
+func FindYookassaFee() (*float64, error) {
 	collection := repositories.MajorityClient.Database(config.Config.MongoDatabase).Collection(config.Config.MongoCollectionConfig)
-	filter := bson.M{"key": "yookassa_rate"}
+	filter := bson.M{"key": "yookassa_fee"}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(config.Config.TimeoutMongoQuery)*time.Millisecond)
 	defer cancel()
 	var result *db.FloatConfig
