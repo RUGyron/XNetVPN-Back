@@ -15,7 +15,7 @@ func SaveBilling(c *gin.Context) {
 	// send request in yk
 	ykId, redirectUri, err := yookassa.RequestBillingSave(email)
 	if err != nil || redirectUri == nil || ykId == nil {
-		fmt.Println(err)
+		fmt.Println(err, redirectUri, ykId)
 		c.JSON(responses.ServerError("failed to process payment"))
 		return
 	}
