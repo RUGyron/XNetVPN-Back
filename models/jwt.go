@@ -3,7 +3,7 @@ package models
 import (
 	"XNetVPN-Back/config"
 	"errors"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v5"
 	"time"
 )
 
