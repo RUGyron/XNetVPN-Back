@@ -4,14 +4,12 @@ import (
 	"XNetVPN-Back/repositories/yk_events"
 	"XNetVPN-Back/responses"
 	"XNetVPN-Back/services/yookassa"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func SaveBilling(c *gin.Context) {
 	email := c.Query("email")
-	fmt.Println("email:", email)
 
 	// send request in yk
 	ykId, redirectUri, err := yookassa.RequestBillingSave(email)

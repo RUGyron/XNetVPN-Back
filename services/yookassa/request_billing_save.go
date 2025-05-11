@@ -10,6 +10,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/davecgh/go-spew/spew"
 	"github.com/google/uuid"
 	"math"
 	"net/http"
@@ -83,6 +84,7 @@ func RequestBillingSave(email string) (*string, *string, error) {
 		},
 		Metadata: in.Metadata{Event: models.YKEventType.Save},
 	}
+	spew.Dump(paymentPayload)
 	bodyBytes, err := json.Marshal(paymentPayload)
 	if err != nil {
 		return nil, nil, err
