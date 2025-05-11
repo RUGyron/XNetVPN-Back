@@ -1,28 +1,33 @@
 package controllers
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
+	"XNetVPN-Back/models"
+	"XNetVPN-Back/models/in"
+	"XNetVPN-Back/repositories/yk_events"
+	"XNetVPN-Back/responses"
 	"github.com/gin-gonic/gin"
-	"io"
-	"net/http"
 )
 
 func YookassaCallback(c *gin.Context) {
-	body, err := io.ReadAll(c.Request.Body)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to read body"})
+	var payload in.YookassaCallback
+
+	// Parse JSON
+	if err := c.ShouldBindJSON(&payload); err != nil {
+		c.JSON(responses.InvalidInputs())
 		return
 	}
 
-	var pretty bytes.Buffer
-	if err := json.Indent(&pretty, body, "", "  "); err != nil {
-		// если не удалось отформатировать, просто выведем как есть
-		fmt.Println("Raw JSON:\n", string(body))
-	} else {
-		fmt.Println("Formatted JSON:\n", pretty.String())
+	// Confirm yk event
+	switch payload.Object.Metadata.Event {
+	case models.YKEventType.Save:
+		if err := yk_events.UpdateBillingSave(payload); err != nil {
+			c.JSON(responses.Forbidden())
+			return
+		}
+	default:
+		c.JSON(responses.InvalidInputs())
+		return
 	}
 
-	c.Status(http.StatusOK)
+	c.JSON(responses.Success())
 }

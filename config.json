@@ -17,6 +17,7 @@
     "mongo_collection_devices": "devices",
     "mongo_collection_wg_configs": "wg_configs",
     "mongo_collection_config": "config",
+    "mongo_collection_yk_events": "yk_events",
     "ip_header": "X-Forwarded-For",
     "yoo_kassa_allowed_ips": [
         "185.71.76.0/27",

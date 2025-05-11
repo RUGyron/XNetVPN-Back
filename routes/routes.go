@@ -15,5 +15,5 @@ func SetupRoutes(router *gin.Engine) {
 	router.POST("/device/add", jwt.AccessBearerRequired(), controllers.AddDevice)
 	router.POST("/config", jwt.AccessBearerRequired(), controllers.GetWgConfig)
 	router.POST("/yk-callback", middleware.YooKassaSecure(), controllers.YookassaCallback)
-	router.POST("/save-billing", controllers.SaveBilling)
+	router.POST("/save-billing", jwt.AccessBearerRequired(), controllers.SaveBilling)
 }

@@ -29,6 +29,7 @@ type Model struct {
 	MongoCollectionDevices       string `json:"mongo_collection_devices"`
 	MongoCollectionWgConfigs     string `json:"mongo_collection_wg_configs"`
 	MongoCollectionConfig        string `json:"mongo_collection_config"`
+	MongoCollectionYKEvents      string `json:"mongo_collection_yk_events"`
 
 	// CORS
 	CorsAllowedOrigins   []string `json:"cors_allowed_origins"`

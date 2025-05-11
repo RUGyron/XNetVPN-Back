@@ -12,12 +12,12 @@ import (
 	"time"
 )
 
-func FindRubRate() (*float64, error) {
+func FindYookassaRate() (*float64, error) {
 	collection := repositories.MajorityClient.Database(config.Config.MongoDatabase).Collection(config.Config.MongoCollectionConfig)
-	filter := bson.M{"key": "rub_rate"}
+	filter := bson.M{"key": "yookassa_rate"}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(config.Config.TimeoutMongoQuery)*time.Millisecond)
 	defer cancel()
-	var result *db.RubRateConfig
+	var result *db.FloatConfig
 	err := collection.FindOne(ctx, filter, options.FindOne().SetMaxTime(time.Duration(config.Config.TimeoutMongoQueryInside)*time.Millisecond)).Decode(&result)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {

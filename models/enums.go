@@ -7,3 +7,23 @@ type ProductSwitchResult struct {
 	NewCredit   float64
 	ApplyNow    bool
 }
+
+var YKEventType = struct {
+	Save   string
+	Pay    string
+	Delete string
+}{
+	Save:   "save",
+	Pay:    "pay",
+	Delete: "delete",
+}
+
+var YKEventStatus = struct {
+	Pending string
+	Success string
+	Error   string
+}{
+	Pending: "pending",
+	Success: "success",
+	Error:   "error",
+}

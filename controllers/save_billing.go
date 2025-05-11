@@ -1,13 +1,28 @@
 package controllers
 
 import (
-	yookassapackage "XNetVPN-Back/services/yookassa"
+	"XNetVPN-Back/repositories/yk_events"
+	"XNetVPN-Back/responses"
+	"XNetVPN-Back/services/yookassa"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func SaveBilling(c *gin.Context) {
-	err := yookassapackage.RequestBillingSave(c.Param("email"))
-	if err != nil {
-		c.JSON(500, gin.H{"message": err.Error()})
+	email := c.Param("email")
+
+	// send request in yk
+	ykId, redirectUri, err := yookassa.RequestBillingSave(email)
+	if err != nil || redirectUri == nil || ykId == nil {
+		c.JSON(responses.ServerError("failed to process payment"))
+		return
 	}
+
+	// save request in db
+	if err := yk_events.InsertBillingSave(*ykId, email); err != nil {
+		c.JSON(responses.ServerError("failed to process billing save"))
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"uri": redirectUri})
 }
